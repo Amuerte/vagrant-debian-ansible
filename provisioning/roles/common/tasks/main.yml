@@ -1,0 +1,6 @@
+---
+- name: Copy the jdk bin
+  copy: 
+  		src=jdk-6u45-linux-x64.bin
+  		dest=/usr/lib
+  		mode=0755
