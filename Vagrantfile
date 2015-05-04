@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant.require_version ">= 1.6.5"
+Vagrant.require_version ">= 1.7.2"
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -20,11 +20,13 @@ Vagrant.configure(2) do |config|
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
+  config.vm.box_check_update = false
 
+  # Prevent Vagrant from inserting generated public key
   config.ssh.insert_key = false
-  #config.ssh.private_key_path = "C:/Users/b.vezon/.vagrant.d/insecure_private_key"
 
+  # Configuration for the Ansible master machine
+  #config.vm.define "master", autostart: false do |master|
   config.vm.define "master" do |master|
     master.vm.network "private_network", ip: "192.168.56.33"
     config.vm.hostname = "ansible"
@@ -36,8 +38,16 @@ Vagrant.configure(2) do |config|
       vbmaster.cpus = "1"
     end
 
+    # Unsecure : Copying auth files 
+    master.vm.provision "file", source: "provisioning_file/vagrant", destination: "/home/vagrant/.ssh/id_dsa"
+    master.vm.provision "file", source: "provisioning_file/known_hosts", destination: "/home/vagrant/.ssh/known_hosts"
+
+    # Run the ansible playbook from the master
+    master.vm.provision "shell", path: "provisioning_shell/provisioner.sh"
+
   end
 
+  # Configuration for the provisioned machine
   config.vm.define "node" do |node|
     node.vm.network "private_network", ip: "192.168.56.34"
     config.vm.hostname = "satan"

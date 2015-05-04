@@ -1,0 +1,10 @@
+---
+# This playbook deploys a simple standalone JBoss server. 
+
+- hosts: eliame_dev
+  user: vagrant
+  remote_user: vagrant
+  sudo: true
+
+  roles:
+    - common

@@ -1,1 +1,3 @@
 .vagrant
+provisioning_ansible/roles/common/files/jboss-5.1.0.GA.zip
+provisioning_ansible/roles/common/files/jdk-6u45-linux-x64.bin
