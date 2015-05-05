@@ -68,13 +68,4 @@ Vagrant.configure(2) do |config|
 
   # config.vm.synced_folder "../data", "/vagrant_data"
 
-  #  config.vm.provision :ansible do |ansible| 
-  #    ansible.limit = 'eliame_dev'
-  #    ansible.playbook = "provisioning/site.yml"
-  #    ansible.inventory_path = "provisioning/hosts"
-  #    ansible.verbose = "vvvv"
-  #  end
-  
-  #  config.vm.provision "shell", path: "provisioner.sh"
-
 end
