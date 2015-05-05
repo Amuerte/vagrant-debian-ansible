@@ -43,7 +43,7 @@ Vagrant.configure(2) do |config|
     master.vm.provision "file", source: "provisioning_file/known_hosts", destination: "/home/vagrant/.ssh/known_hosts"
 
     # Run the ansible playbook from the master
-    master.vm.provision "shell", path: "provisioning_shell/provisioner.sh"
+    master.vm.provision "shell", path: "provisioning_shell/provisioner.sh", privileged: false
 
   end
 
